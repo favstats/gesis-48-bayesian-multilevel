@@ -157,13 +157,18 @@ make_posterior <- function(likelihood, prior){
 likelihood_function <- hypergeometric_likelihood(8, 25, 100)
 prior_function <- pseudo_normal_prior(100, 75, 10)
 
-make_posterior(likelihood_function, prior_function) %>% 
-  mutate(type = "posterior") %>% 
-  bind_rows(likelihood_function %>% mutate(type = "likelihood")) %>% 
-  bind_rows(prior_function %>% mutate(type = "prior")) %>% 
-  ggplot(aes(x, y, fill = type)) +
-  geom_col(alpha = 0.55, position = position_dodge(), width = 4) +
-  scale_fill_viridis_d()
+plot_together <- function(likelihood_function,
+                          prior_function) {
+  make_posterior(likelihood_function, prior_function) %>% 
+    mutate(type = "posterior") %>% 
+    bind_rows(likelihood_function %>% mutate(type = "likelihood")) %>% 
+    bind_rows(prior_function %>% mutate(type = "prior")) %>% 
+    ggplot(aes(x, y, fill = type)) +
+    geom_col(alpha = 0.55, position = position_dodge(), width = 4) +
+    scale_fill_viridis_d()  
+}
+
+plot_together(likelihood_function, prior_function)
 ```
 
 
