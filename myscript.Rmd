@@ -283,8 +283,9 @@ samples <- extract(M)$theta
 library(brms)
 library(dplyr)
 library(readr)
+library(ggplot2)
 
-Df <- read_csv("code/data/diagram.csv") %>% 
+Df <- read_csv("data/diagram.csv") %>% 
   select(-X1)
 
 ggplot(Df,
@@ -334,11 +335,11 @@ newpriors <- c(prior_string("student_t(3, 0, 10)", class = "b"),
 newpriors.cm <- c(prior_string("student_t(3, 18, 10)", class = "b"),
                prior_string("student_t(3, 0, 10)", class = "sigma"))
                  
-M_null.new <- brm(descript ~ 1, Df, save_all_pars = T, prior=newpriors.i)
+M_null.new <- brm(descript ~ 1, Df, save_all_pars = T, prior = newpriors.i)
 summary(M_null.new)
 plot(M_null.new)
 
-M.new <- brm(descript ~ group, Df, save_all_pars = T, prior=newpriors)
+M.new <- brm(descript ~ group, Df, save_all_pars = T, prior = newpriors)
 summary(M.new)
 plot(M.new)
 
@@ -367,5 +368,11 @@ bayes_factor(M.cell, M_null.new)
 
 
                  
+```
+
+```{r}
+library (wordcloud2)
+letterCloud()
+
 ```
 

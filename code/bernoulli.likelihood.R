@@ -25,3 +25,5 @@ axis(1, at=x.ticks, labels=x.ticks, col.axis="black", las=1)
 max.limit <- 1.0 * ((m/n)^m*(1-(m/n))^(n-m))
 y.ticks <- seq(0, max.limit, length.out = 5)
 axis(2, at=y.ticks, labels=rep('',5), col.axis="black", las=1)
+
+

@@ -37,8 +37,8 @@ schools <- c('1308', '1946', '7276', '9198',
 mathach %>% 
   filter(school %in% schools) %>% 
   mutate(school = as.character(school)) %>% 
-  ggplot(aes(x=ses, y=mathach, col=school)
-) + geom_point() +
+  ggplot(aes(x=ses, y=mathach, col=school)) + 
+  geom_point() +
   stat_smooth(method='lm', se=F) +
   facet_wrap(~school) +
   guides(col=F)
@@ -49,7 +49,7 @@ mathach %>%
 
 M <- brm(reaction_time ~ 1 + (1|subject),
          cores = 2, 
-         prior = set_prior('normal(0, 100)'), 
+         # prior = set_prior('normal(0, 100)'), 
          save_all_pars = T,
          data = fake_rt)
 
@@ -59,7 +59,7 @@ prior_summary(M)
 # ------- mathach --------------------
 M <- brm(mathach ~ ses + (ses|school),
          cores = 2, 
-         prior = set_prior('normal(0, 100)'), 
+         # prior = set_prior('normal(0, 100)'), 
          save_all_pars = T,
          data = mathach)
 
@@ -68,9 +68,9 @@ prior_summary(M)
 # -------- sleep ---------------------
 
 # ------- mathach --------------------
-M <- brm(Reaction ~ Subject + (Reaction|Subject),
+M <- brm(Reaction ~ Days + (Days|Subject),
          cores = 2, 
-         prior = set_prior('normal(0, 100)'), 
+         # prior = set_prior('normal(0, 100)'), 
          save_all_pars = T,
          data = sleepstudy)
 
